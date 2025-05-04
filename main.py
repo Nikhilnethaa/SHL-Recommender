@@ -1,10 +1,10 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from vector_db import vector_db
 import uvicorn
-import os
+from fastapi.responses import FileResponse
 
 app = FastAPI()
 
@@ -21,7 +21,8 @@ class Query(BaseModel):
 
 @app.get("/")
 def serve_index():
-    return FileResponse(os.path.join(os.path.dirname(__file__), "index.html"))
+    index_path = os.path.join(os.path.dirname(__file__), "index.html")
+    return FileResponse(index_path)
 
 @app.get("/health")
 def health_check():
@@ -45,4 +46,5 @@ def recommend(query: Query):
     }
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.getenv("PORT", 8000))  # Use the port from the environment variable
+    uvicorn.run(app, host="0.0.0.0", port=port)
