@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from vector_db import vector_db
 import uvicorn
+import os
 
 app = FastAPI()
 
@@ -16,6 +18,10 @@ app.add_middleware(
 
 class Query(BaseModel):
     text: str
+
+@app.get("/")
+def serve_index():
+    return FileResponse(os.path.join(os.path.dirname(__file__), "index.html"))
 
 @app.get("/health")
 def health_check():
