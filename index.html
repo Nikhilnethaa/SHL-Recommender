@@ -165,16 +165,16 @@
             }
 
             try {
-                const response = await fetch('https://shl-recommender-production.up.railway.app/api/recommendations'', {
+             const response = await fetch('https://shl-recommender-production.up.railway.app/api/recommendations', {  // Fix the extra quotation mark here
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        text: query
+    }),
+});
 
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        text: query
-                    }),
-                });
 
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
