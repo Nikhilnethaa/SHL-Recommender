@@ -167,7 +167,7 @@
             try {
                 console.log('Query entered:', query);  // Debugging query value
 
-                const response = await fetch('https://shl-recommender-production.up.railway.app/api/recommendations', {
+                const response = await fetch('https://shl-recommender-production.up.railway.app/recommend', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
